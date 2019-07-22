@@ -1,22 +1,16 @@
 const express = require("express");
-const mongoose = require("mongoose");
-
-mongoose.connect(
-  "mongodb://localhost:27017/Todos",
-  { useNewUrlParser: true },
-  () => {
-    console.log("connected to Todos APP");
-  }
-);
 
 /**
- * Define a Todos model
+ * Impport database connection
  */
-const Todos = mongoose.model("Todos", {
-  text: String,
-  completeAt: { type: Boolean, default: false },
-  createAt: { type: Date, default: Date.now }
-});
+const { mongoose } = require("./db/mongo");
+
+// Import Todos model and User model
+const { Todos } = require("./model/todos");
+const { User } = require("./model/user");
+
+// Import todos api
+const todos = require("./api/todos");
 
 const app = express();
 
@@ -26,22 +20,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.json({ msg: "It works " });
-});
-
-/**
- * Create a todos
- */
-
-const todo = new Todos({
-  text: "Walk with dog"
-});
-
-todo
-  .save()
-  .then(doc => console.log(doc))
-  .catch(error => console.log(error));
+// Set router as middleware
+app.use("/api/todos", todos);
 
 /**
  * Assign environment variable or default port is 5000
