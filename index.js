@@ -11,6 +11,7 @@ const { User } = require("./model/user");
 
 // Import todos api
 const todos = require("./api/todos");
+const customer = require("./api/customer");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Set router as middleware
 app.use("/api/todos", todos);
+app.use("/api/customer", customer);
 
 /**
  * Assign environment variable or default port is 5000
