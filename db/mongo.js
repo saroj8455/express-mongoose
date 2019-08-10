@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const MONGO_URL =
-  "mongodb+srv://saroj:saroj#1995@cluster0-azzky.mongodb.net/test?retryWrites=true&w=majority";
+  "mongodb+srv://saroj:<PASSWORD>@cluster0-azzky.mongodb.net/test?retryWrites=true&w=majority";
 
 mongoose.Promise = global.Promise;
 mongoose
